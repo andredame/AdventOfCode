@@ -1,4 +1,6 @@
 import fs from 'fs';
+import { get } from 'http';
+
 const directions = fs.readFileSync('./inputs/input008.txt', 'utf8').replace(/\r/g, '').split('\n')[0]; // split by lines
 const nodes = fs.readFileSync('./inputs/input008.txt', 'utf8').replace(/\r/g, '').split('\n').slice(2); // split by lines
 let map={};
@@ -36,28 +38,50 @@ function part01(){
     }
     return total;
 }
-function part02(){
-    
-    let current=endsWithA;
-    let total=0;
 
-     while(!current.every((node)=>node[2]==='Z')){
-    
-        current.forEach((node)=>{
-    
-            let {left,right}=map[node];
-    
-            let directionToGo=directions[total%directions.length];
-    
-            if(directionToGo === 'L'){current[current.indexOf(node)]=left;}
-            
-            else{current[current.indexOf(node)]=right;}
-
-        });
-        total++;
+function getSteps(directions,nodes,startingNode){
+    let total = 0;
+    let current = startingNode;
+  
+    while (current[2] !== 'Z') {
+      let {left,right} = map[current];
+      
+      let directionToGo = directions[total % directions.length];
+  
+      if (directionToGo === 'L') {
+        current = left;
+      } else {
+        current = right;
+      }
+      total++;
     }
+  
     return total;
 }
+function part02(){
+    let steps=[];
+    for(let i=0;i<endsWithA.length;i++){
+        steps.push(getSteps(directions,nodes,endsWithA[i]));
+    }
+    return lcm(...steps);   
+}
 
-console.log(part01())
-console.log(part02());
+function lcm(...numbers) {
+    return numbers.reduce((a, b) => a * b / gcd(a, b));
+}
+
+function gcd(...numbers) {
+    return numbers.reduce((a, b) => {
+        while (b) {
+            const t = b;
+            b = a % b;
+            a = t;
+        }
+        return a;
+    });
+}
+function main(){
+    console.log("Part 1:",part01());
+    console.log("Part 2:",part02());
+}
+main();
