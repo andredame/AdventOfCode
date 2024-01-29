@@ -5,11 +5,17 @@ const maior = fs.readFileSync('./inputs/input000.txt', 'utf8').replace(/\r/g, ''
 
 var MAP = input.map((row) => row.split(''));
 
+var HEIGHT = MAP.length;
+
+var WIDTH = MAP[0].length;
+
 var FIRST_POS ={y:0,x: input[0].split('').indexOf('.'),distance:0,visited : new Set()};
 
 var LAST_POS ={y:input.length-1,x: input[input.length-1].split('').indexOf('.'),distance:0};
 
 let distances=[];
+
+
 
 let visited = new Set();
 
@@ -48,10 +54,9 @@ function getNeighbors(pos){
             y:pos.y+move[0],
             x:pos.x+move[1],
             distance:pos.distance+1,
-            visited: new Set([...pos.visited])
           };  // Create a new set based on the current position's visited set
         
-        if(isValid(pos,neighbor) && !neighbor.visited.has(neighbor.x+','+neighbor.y) ){
+        if(isValid(pos,neighbor) && !visited.has(neighbor.x+','+neighbor.y) ){
             neighbors.push(neighbor);
         }
     }
@@ -68,7 +73,7 @@ function isValid(current,neighbor){
     if(neighbor.x>=MAP[0].length){return false;}
     if(MAP[neighbor.y][neighbor.x] == '#'){return false;}
     let slopes = ['<','>','^','v'];
-    // if(slopes.includes(MAP[neighbor.y][neighbor.x])){return isSlope(neighbor,current);}
+    // i    f(slopes.includes(MAP[neighbor.y][neighbor.x])){return isSlope(neighbor,current);}
     return true;
 }
 
@@ -82,47 +87,29 @@ function isSlope(neighbor,current){
 
 }
 
-//using dfs traverse without recursion
-
-function partTwo() {
-    let paths= [];
-    let stack = [];
-    let currentMap = MAP.map(row => [...row]);
-
-
-    stack.push(FIRST_POS);
-    while(stack.length > 0){
-
-        let current = stack.pop();
-        visited = current.visited;
-
-        if(current.x == LAST_POS.x && current.y == LAST_POS.y){
-            LAST_POS.distance=current.distance>LAST_POS.distance?current.distance:LAST_POS.distance;
-            console.log(current.distance);
-            paths.push(current.distance);
-            continue;
-        }
-        visited.add(current.x+','+current.y);
-        let neighbors = getNeighbors(current);
-        for(let neighbor of neighbors){
-            if(!visited.has(neighbor.x+','+neighbor.y)){
-                neighbor.distance = current.distance + 1;
-                stack.push(neighbor);
+function createGraph(){
+    let graph = {};
+    for(let i=0;i<HEIGHT;i++){
+        for(let j=0;j<WIDTH;j++){
+            if(MAP[i][j] != '#'){
+                graph[i+','+j] = getNeighbors({y:i,x:j});
             }
         }
     }
-    return paths;
+    return graph;
 
-    
+}
+
+
+
+function partTwo() {
+    console.log(createGraph());
 }
 
 
 function main(){ 
-    let maiorNum=0;
-    for(let i=0;i<maior.length;i++){
-        if(maiorNum<maior[i]){maiorNum=maior[i]}
-    }
-    console.log(maiorNum);
+
+    partTwo()
 }
 
 main();

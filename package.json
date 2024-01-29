@@ -2,12 +2,15 @@
   "name": "adventofcode",
   "version": "1.0.0",
   "main": "day001.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
