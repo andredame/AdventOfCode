@@ -4,13 +4,7 @@
   "main": "day001.js",
   "type": "module",
   "scripts": {
-    "test": "jest"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "jest": "^29.7.0"
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
+  
 }
