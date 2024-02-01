@@ -90,10 +90,58 @@ function partOne(){
     return sum;
 }
 
+function numOfcombinations(value){
+    let combinations = {
+        rangeLowX:1, rangeHighX:4000, 
+        rangeLowM:1, rangeHighM:4000, 
+        rangeLowA:1, rangeHighA:4000, 
+        rangeLowS:1, rangeHighS:4000
+    };
+
+    stack = [];
+    stack.push(MAP.get('in'),combinations);
+
+    let [rules,combination]=stack.pop();
+    console.log(combination);
+    
+
+    while(stack.length>0){
+        break;
+    }
+
+
+
+}
+    
+
+function goesTo(combination,rule){
+    if(MAP.has(rule)){
+        stack.push(MAP.get(rule),combination);
+    }else{
+        
+    }
+
+}
+
+
+function partTwo(){
+    let combinations = {
+        rangeLowX:1, rangeHighX:4000, 
+        rangeLowM:1, rangeHighM:4000, 
+        rangeLowA:1, rangeHighA:4000, 
+        rangeLowS:1, rangeHighS:4000
+    };
+    let stack = [];
+    stack.push(MAP.get('in'),combinations);
+    console.log(stack)
+
+}
+
+
 
 
 function main(){
     fillHashMap();
-    console.log('Part 01',partOne());
+    console.log(partTwo());
 }
 main();

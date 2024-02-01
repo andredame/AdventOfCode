@@ -3,6 +3,9 @@ import readline from 'readline';
 
 const lines = fs.readFileSync('./inputs/input001.txt', 'utf8').replace(/\r/g, '').split('\n');
 
+var MAP = new Map();
+
+
 
 function partOne(lines) {
     let totalPart01 = 0;
@@ -33,24 +36,61 @@ function partTwo(lines) {
     let totalPart02 = 0;
 
     for (const line of lines) {
+        console.log(line);
 
-        let lineToReplace = replaceWordToNumber(line);
-
-        let [firstNumber,lastNumber] = [-1,-1];
-
-        for (let i = 0; i < lineToReplace.length; i++) {
-            if (!isNaN(lineToReplace[i])) {
-                if (firstNumber === -1) {
-                    firstNumber = Number(lineToReplace[i]);
-                }
-                lastNumber = Number(lineToReplace[i]);
+        let subString='';
+        let i=0;
+        let [firstNumber, lastNumber] = [0, 0];
+        while(true){
+            subString+=line[i];
+            let n =findFirstNumber(subString);
+            if(n!==0){
+                firstNumber=n;
+                console.log('first', firstNumber);
+                break;
             }
+            i++;
+            
+        }
+        subString='';
+        i=line.length-1;
+        while(true){
+            subString+=line[i];
+            let reverseSubString = reverseString(subString);
+            let n =findFirstNumber(reverseSubString);
+            if(n!==0){
+                lastNumber=n;
+                console.log('last', lastNumber);
+                break;
+            }
+            i--;
         }
         
-        totalPart02 += Number(firstNumber + '' + lastNumber);
+
+        let number = firstNumber + '' + lastNumber;
+        totalPart02 += Number(number);
+
     }
 
     return totalPart02;
+}
+
+function reverseString(str) {
+    
+    return str.split('').reverse().join('');
+}
+
+function findFirstNumber(str) {
+    if(str.includes('1') || str.includes('one')){return 1;}
+    if(str.includes('2') || str.includes('two')){return 2;}
+    if(str.includes('3') || str.includes('three')){return 3;}
+    if(str.includes('4') || str.includes('four')){return 4;}
+    if(str.includes('5') || str.includes('five')){return 5;}
+    if(str.includes('6') || str.includes('six')){return 6;}
+    if(str.includes('7') || str.includes('seven')){return 7;}
+    if(str.includes('8') || str.includes('eight')){return 8;}
+    if(str.includes('9') || str.includes('nine')){return 9;}
+    return 0;
 }
 
 
@@ -68,13 +108,23 @@ function replaceWordToNumber(word) {
         'nine': 9,
     };
     
-    
-
     return word;
+}
+function fillMap() {
+    MAP.set('one', 1);
+    MAP.set('two', 2);
+    MAP.set('three', 3);
+    MAP.set('four', 4);
+    MAP.set('five', 5);
+    MAP.set('six', 6);
+    MAP.set('seven', 7);
+    MAP.set('eight', 8);
+    MAP.set('nine', 9);
 }
 
 function main(){
     console.log("part 01", partOne(lines));
+    fillMap();
     console.log("part 02", partTwo(lines));
 
 }
