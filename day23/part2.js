@@ -1,16 +1,13 @@
-import { count } from 'console';
 import fs from 'fs';
-import path from 'path';
-
+import PriorityQueue from 'js-priority-queue'; 
 
 const inputWithSlopes = fs.readFileSync('./inputs/input023.txt', 'utf8').replace(/\r/g, '').split('\n');
-//i want to replace all > < ^ v with .
 
 const input = inputWithSlopes.map((row) => row.replace(/[<>^v]/g, '.'));
 
 var grid = input.map((row) => row.split(''));
 
-var FIRST_POS ={y:0,x: input[0].split('').indexOf('.'),distance:1};
+var FIRST_POS ={y:0,x: input[0].split('').indexOf('.'),distance:0};
 
 var LAST_POS ={y:input.length-1,x: input[input.length-1].split('').indexOf('.'),distance:1};
 
@@ -46,7 +43,6 @@ let visited = new Set();
 let connections = new Map();
 
 function partTwo() {
-    let [firstNode, lastNode] = [findNodes(FIRST_POS)[0], findNodes(LAST_POS)[0]];
     
     let nodes=[];
     let queue=[FIRST_POS,LAST_POS];   
@@ -73,76 +69,51 @@ function partTwo() {
                 connections.set(neighborKey, []);
             }
             if (!connections.get(neighborKey).some(({ y, x }) => y === current.y && x === current.x)) {
-                connections.get(neighborKey).push(current);
+                connections.get(neighborKey).push({y:current.y,x:current.x,distance:neighbor.distance});
             }
         }
         nodes.push(current);
     }
-    let paths = findAllPaths(FIRST_POS, LAST_POS, connections);    
-   
-
+    let path= findAllPaths(FIRST_POS,LAST_POS,connections);
+    console.log(path);
+    let maxDistance = 0;
+    for(let p of path){
+        let distance = 0;
+        for(let i=0;i<p.length;i++){
+            distance += p[i].distance;
+        }
+        if(distance>maxDistance){
+            maxDistance = distance;
+        }
+    }
+    return maxDistance;
 }
-function findAllPaths(source, target, connections) {
-    let visited = new Set();
-    let path = [];
+function findAllPaths(start,end,connections){
+    let queue = [{node:start,path:[start]}];
     let paths = [];
-    let key = `${source.y},${source.x}`;
-    visited.add(key);
-    path.push(source);
-    findPath(source, target, connections, visited, path, paths);
+    while(queue.length>0){
+        let current = queue.shift();
+        if(current.node.y == end.y && current.node.x == end.x){
+            paths.push(current.path);
+            continue;
+        }
+        for(let neighbor of connections.get(`${current.node.y},${current.node.x}`)){
+            if(!current.path.some((node)=>node.y == neighbor.y && node.x == neighbor.x)){
+                queue.push({node:neighbor,path:[...current.path,neighbor]});
+            }
+        }
+    }
     return paths;
-
-}
-let distance=0;
-function findPath(source, target, connections, visited, path, paths) {
-    if (source.y === target.y && source.x === target.x) {
-        distance = Math.max(distance, printPath(path));
-        paths.push([...path]);
-        
-        return;
-    }
-    let key = `${source.y},${source.x}`;
-    for (let neighbor of connections.get(key)) {
-        let neighborKey = `${neighbor.y},${neighbor.x}`;
-        if (!visited.has(neighborKey)) {
-            visited.add(neighborKey);
-            path.push(neighbor);
-            findPath(neighbor, target, connections, visited, path, paths);
-            path.pop();
-            visited.delete(neighborKey);
-        }
-    }
 }
 
-const printPath = (path) => {
-    let prevNode = FIRST_POS;
-    let grid = input.map((row) => row.split(''));
-    let distance = 0;
-    for (let i = 0; i < path.length-1; i++) {
-        let pathKey = `${prevNode.y},${prevNode.x} to ${path[i].y},${path[i].x}`;
-        console.log(pathKey);
-        if (pathToNode.has(pathKey)) {
-            pathToNode.get(pathKey).forEach((node) => {
-                grid[node.y][node.x] = 'O';
-            });
-        }
-        prevNode = path[i];
-    }
-    let pathKey = `${LAST_POS.y},${LAST_POS.x} to ${prevNode.y},${prevNode.x}`;
-    if (pathToNode.has(pathKey)) {
-        pathToNode.get(pathKey).forEach((node) => {
-            grid[node.y][node.x] = 'O';
-        });
-    }
-    console.log(distance);
-    
-    return countO(grid);
-} 
-let pathToNode=new Map();
 
-const findNodes=(position)=>{
+
+let pathToNode = new Map();
+
+const findNodes=(nodePosition)=>{
     let visitedNodes = new Set();
-    visitedNodes.add(`${position.y},${position.x}`);
+    visitedNodes.add(`${nodePosition.y},${nodePosition.x}`);
+    let position={y:nodePosition.y,x:nodePosition.x,distance:0}
     
     let stack = getNeighbors(position,visitedNodes);
     let nodes=[];
@@ -158,7 +129,7 @@ const findNodes=(position)=>{
         let neighbors = getNeighbors(current,visitedNodes);
         if (neighbors.length > 1){
             nodes.push({y:current.y,x:current.x,distance:current.distance});
-            pathToNode.set(`${position.y},${position.x} to ${current.y},${current.x}`, paths);
+            pathToNode.set(`${nodePosition.y},${nodePosition.x} to ${current.y},${current.x}`, paths);
             paths = [];
             continue;
         }
@@ -170,16 +141,10 @@ const findNodes=(position)=>{
    
 }
 
-const countO = (grid) => {
-    return grid.reduce((acc, row) => {
-        return acc + row.filter((val) => val === 'O').length;
-    }, 0);
-}
+
 
 function main(){ 
-    partTwo();
-    console.log(distance);
-
+    console.log(partTwo());    
 }
 
 main();
