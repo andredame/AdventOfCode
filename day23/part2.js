@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { connect } from 'http2';
 import PriorityQueue from 'js-priority-queue'; 
 
 const inputWithSlopes = fs.readFileSync('./inputs/input023.txt', 'utf8').replace(/\r/g, '').split('\n');
@@ -141,10 +142,8 @@ const findNodes=(nodePosition)=>{
    
 }
 
-
-
 function main(){ 
-    console.log(partTwo());    
+    console.log(partTwo());  
 }
 
 main();
