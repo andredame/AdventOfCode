@@ -1,8 +1,8 @@
 import fs from 'fs';
 import { get } from 'http';
 
-const directions = fs.readFileSync('./inputs/input008.txt', 'utf8').replace(/\r/g, '').split('\n')[0]; // split by lines
-const nodes = fs.readFileSync('./inputs/input008.txt', 'utf8').replace(/\r/g, '').split('\n').slice(2); // split by lines
+const directions = fs.readFileSync('./2023/inputs/input008.txt', 'utf8').replace(/\r/g, '').split('\n')[0]; // split by lines
+const nodes = fs.readFileSync('./2023/inputs/input008.txt', 'utf8').replace(/\r/g, '').split('\n').slice(2); // split by lines
 let map={};
 let endsWithA=[]; //for part 2
 

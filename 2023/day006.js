@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-let input = fs.readFileSync('./inputs/input006.txt', 'utf8');
+let input = fs.readFileSync('./2023/inputs/input006.txt', 'utf8');
 let lines = input.split('\n'); // split by lines
 
 let timeLine = lines[0].replace(/\r/g, '').split(/\s+/).slice(1); // replace \r with an empty string, split the first line by spaces, and remove the first element

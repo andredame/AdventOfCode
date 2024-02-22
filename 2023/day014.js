@@ -1,5 +1,5 @@
 import fs from 'fs';
-const input = fs.readFileSync('./inputs/input014.txt', 'utf8').replace(/\r/g, '').split('\n');
+const input = fs.readFileSync('./2023/inputs/input014.txt', 'utf8').replace(/\r/g, '').split('\n');
 
 function tiltToNorth(array,i,j){
 

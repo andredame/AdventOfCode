@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const input = fs.readFileSync('./inputs/input003.txt', 'utf8');
+const input = fs.readFileSync('./2023/inputs/input003.txt', 'utf8');
 const cleanedInput = input.replace(/\r/g, '');
 const lines = cleanedInput.split('\n');
 const elements = lines.map(element => element.split(''));

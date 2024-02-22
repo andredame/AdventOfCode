@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const input = fs.readFileSync('./inputs/input005.txt', 'utf8').replace(/\r/g, '').split(/\n\s*\n/).map(part => part.replace(/\n/g, '|'));
+const input = fs.readFileSync('./2023/inputs/input005.txt', 'utf8').replace(/\r/g, '').split(/\n\s*\n/).map(part => part.replace(/\n/g, '|'));
 
 const seeds=input[0].split(':')[1].trim().split(' ').map(seed=>parseInt(seed));
 input.shift();

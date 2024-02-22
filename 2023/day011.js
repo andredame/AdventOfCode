@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { stdout } from 'process';
 
-const input = fs.readFileSync('./inputs/input011.txt', 'utf-8').replace(/\r/g, '').split('\n').map((line) => line.split(''));
+const input = fs.readFileSync('./2023/inputs/input011.txt', 'utf-8').replace(/\r/g, '').split('\n').map((line) => line.split(''));
 
 var HEIGHT = input.length;
 var WIDTH = input[0].length;

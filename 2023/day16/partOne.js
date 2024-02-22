@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const input = fs.readFileSync('./inputs/input015.txt', 'utf8');
+const input = fs.readFileSync('./2023/inputs/input015.txt', 'utf8');
 
 function partOne() {
     let traverse = input.replace(/\r/g, '').split('\n').map((row) => row.split(''));

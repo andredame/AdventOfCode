@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const input = fs.readFileSync('./inputs/input021.txt', 'utf8').replace(/\r/g, '').split('\n').map((row) => row.split(''));
+const input = fs.readFileSync('./2023/inputs/input021.txt', 'utf8').replace(/\r/g, '').split('\n').map((row) => row.split(''));
 
 //
 var grid=[];

@@ -2,7 +2,7 @@ import fs from 'fs';
 import { connect } from 'http2';
 import PriorityQueue from 'js-priority-queue'; 
 
-const inputWithSlopes = fs.readFileSync('./inputs/input023.txt', 'utf8').replace(/\r/g, '').split('\n');
+const inputWithSlopes = fs.readFileSync('./2023/inputs/input023.txt', 'utf8').replace(/\r/g, '').split('\n');
 
 const input = inputWithSlopes.map((row) => row.replace(/[<>^v]/g, '.'));
 

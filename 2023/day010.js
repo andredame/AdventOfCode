@@ -1,5 +1,5 @@
 import fs from 'fs';
-const input = fs.readFileSync('./inputs/input010.txt','utf-8').split('\r\n').map((line)=>line.split(''));
+const input = fs.readFileSync('./2023/inputs/input010.txt','utf-8').split('\r\n').map((line)=>line.split(''));
 
 function findInitilpositionition(input){
     for(let i=0; i<input.length; i++){

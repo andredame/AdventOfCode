@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const lines = fs.readFileSync('./inputs/input001.txt', 'utf8').replace(/\r/g, '').split('\n');
+const lines = fs.readFileSync('./2023/inputs/input001.txt', 'utf8').replace(/\r/g, '').split('\n');
 
 var MAP = new Map();
 

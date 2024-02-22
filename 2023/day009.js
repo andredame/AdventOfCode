@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const input = fs.readFileSync('./inputs/input009.txt', 'utf8').replace(/\r/g, '').split('\n');
+const input = fs.readFileSync('./2023/inputs/input009.txt', 'utf8').replace(/\r/g, '').split('\n');
 
 function partOne(){
     let sum=0;

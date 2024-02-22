@@ -2,7 +2,7 @@ import fs from 'fs';
 import MinHeap  from './minHeap.js';
 
 //reference : https://www.youtube.com/watch?v=HLdEpEn1Q9g&t=547s
-const input = fs.readFileSync('./inputs/input017.txt', 'utf8')
+const input = fs.readFileSync('./2023/inputs/input017.txt', 'utf8')
     .replace(/\r/g, '')
     .split('\n')
     .map(row => row.split('').map(Number));

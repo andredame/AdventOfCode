@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const input = fs.readFileSync('./inputs/input023.txt', 'utf8').replace(/\r/g, '').split('\n');
+const input = fs.readFileSync('./2023/inputs/input023.txt', 'utf8').replace(/\r/g, '').split('\n');
 
 var MAP = input.map((row) => row.split(''));
 
