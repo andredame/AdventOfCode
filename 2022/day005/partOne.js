@@ -20,14 +20,11 @@ function main(){
     let numberToIndex=new Map();
     
     createMap(stacks,numberToIndex);
-    console.log(stacks)
 
     fillStacks(stacks); 
-    console.log(numberToIndex)
     movements.forEach(line =>{
         let phrase=line.split(' ')
         let [amount,source,target]=[parseInt(phrase[1]),numberToIndex.get(parseInt(phrase[3])),numberToIndex.get(parseInt(phrase[5]))];
-        console.log(stacks,source,target)
 
         for(let i=0;i<amount;i++){
             stacks.get(target).push(stacks.get(source).pop());
@@ -39,7 +36,7 @@ function main(){
     stacks.forEach(array=>{
         outcome+=array.pop();
     })
-    console.log(outcome)
+    console.log('Part One:',outcome)
     
 
 
