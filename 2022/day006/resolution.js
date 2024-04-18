@@ -33,5 +33,5 @@ function partTwo(string){
 }
 
 console.log(partOne(input))
-console.log(partTwo(input))
+console.log(partTwo(input));
 module.exports={partOne,partTwo};
