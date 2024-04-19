@@ -35,27 +35,26 @@ func main(){
 	scanner := bufio.NewScanner(bytes.NewReader(dat))
 	var lines []string
 	readFile(&lines,scanner)
-	
-	depth,horizontal := 0,0
+	depth,horizontal,aim:= 0,0,0
 	for i:=0;i<len(lines);i++{
 		direction,num := splitLine(lines[i])
-
-		moveSubmarine(direction,num,&depth,&horizontal)
+		moveSubmarine(direction,num,&depth,&horizontal,&aim)
 	}
 	fmt.Println(depth*horizontal)
 	
 
 }
 
-func moveSubmarine(direction string,num int,depth *int,horizontal*int){
+func moveSubmarine(direction string,num int,depth *int,horizontal*int,aim*int){
 	if direction == "forward"{
 		*horizontal+=num
+		*depth+= ( *aim * num)
 	}
 	if direction == "up"{
-		*depth-=num
+		*aim-=num
 	}
 	if direction == "down"{
-		*depth+=num
+		*aim+=num
 	}
 	
 }
