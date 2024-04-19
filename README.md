@@ -1,3 +1,8 @@
-**25 Stars**
+ADVENT OF CODE 
 
-<img src="https://github.com/andredame/AdventOfCode/assets/109314147/52b7f3b1-5587-418f-a47d-be8c6793aa41" alt="Descrição da Imagem" style="height: 500px;">
+
+| Ano  | Estrelas                                |
+|------|---------------------------------------|
+| 2021 | 2 (Go) |
+| 2022 | 12         |
+| 2023 | 31  (javascript)     |
